@@ -1,6 +1,6 @@
 import { Content } from './content'
 
-describe('Content Object Value Entity', () => {
+describe('Notification Content Entity', () => {
   it('should be able to create a notification content', () => {
     const content = new Content('Você recebeu uma solicitação')
 
