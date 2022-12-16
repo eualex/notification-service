@@ -8,7 +8,9 @@ describe('Unread Notification Use Case', () => {
     const notificationsRepository = new InMemoryNotificationsRepository()
     const unreadNotification = new UnreadNotification(notificationsRepository)
 
-    const notification = makeNotification()
+    const notification = makeNotification({
+      readAt: new Date()
+    })
 
     await notificationsRepository.create(notification)
 
