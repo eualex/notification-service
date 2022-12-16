@@ -10,6 +10,18 @@ export class InMemoryNotificationsRepository
     return this.notifications.find(n => notificationId === n.id) ?? null
   }
 
+  async countManyByRecipientId(recipientId: string): Promise<number> {
+    const notificationsCount = this.notifications.filter(notification => {
+      const isUserNotification = recipientId === notification.recipientId
+      const isUnreadNotification = !notification.readAt
+      const isActiveNotification = !notification.canceledAt
+
+      return isUserNotification && isUnreadNotification && isActiveNotification
+    }).length
+
+    return notificationsCount
+  }
+
   async create(notification: Notification): Promise<void> {
     this.notifications.push(notification)
   }
