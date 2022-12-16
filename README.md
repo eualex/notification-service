@@ -1,6 +1,6 @@
 ## Notification Service
 
-A microservice created in a event called Ignite Lab of [Rocketseat](https://www.rocketseat.com.br/)
+A microservice created in a event called 'Ignite Lab' of [Rocketseat](https://www.rocketseat.com.br/)
 
 ## How to run?
 
