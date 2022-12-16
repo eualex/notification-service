@@ -1,8 +1,6 @@
-import { randomUUID } from 'crypto'
+import { makeNotification } from '@test/factories/notification-factory'
 import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-notifications-repository'
 import { CountRecipientNotifications } from './count-recipient-notifications'
-import { Notification } from '@app/entities/notification'
-import { Content } from '@app/entities/content'
 
 describe('Count notifications by recipient Use Case', () => {
   it('should be able to count notifications', async () => {
@@ -11,20 +9,18 @@ describe('Count notifications by recipient Use Case', () => {
       notificationsRepository
     )
 
-    const recipientId = randomUUID()
-
-    const notification = new Notification({
-      content: new Content('Você recebeu uma notificação'),
-      category: 'social',
-      recipientId
-    })
-
-    await notificationsRepository.create(notification)
+    await notificationsRepository.create(
+      makeNotification({ recipientId: 'recipient-example' })
+    )
+    await notificationsRepository.create(
+      makeNotification({ recipientId: 'recipient-example' })
+    )
+    await notificationsRepository.create(makeNotification())
 
     const { count } = await countNotifications.execute({
-      recipientId
+      recipientId: 'recipient-example'
     })
 
-    expect(count).toEqual(1)
+    expect(count).toEqual(2)
   })
 })
